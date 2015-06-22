@@ -18,13 +18,14 @@ public class SeaBattle extends javax.swing.JFrame {
     Mapv3 myMap = new Mapv3();
     boolean gameResult;
     boolean placeResult;
-    boolean direction = true;
+    boolean shipPlacementResult;
+    int direction = 0;
     int gameStatus = 0;
+    int shipSize = 1;
     JBExtended buttonArray[][] = new JBExtended[10][10];
-    int whichButton[][]=new int[1][1];
-    int x;
-    int y;
+    JBExtended someButtonName = new JBExtended();   
 
+    
     /**
      * Creates new form SeaBattle
      */
@@ -38,15 +39,16 @@ public class SeaBattle extends javax.swing.JFrame {
                 battleField.add(buttonArray[i][j].button);
             }
         }
-        
-        
-        
-        
-        
-        
         infoDesk();
     }
 
+    static SeaBattle ins = new SeaBattle();    
+    static public void getDataBackFromButton (int y, int x) {
+        System.out.println("qqqqqqqq:"+ins.direction);
+        ins.shipPlacementResult=ins.myMap.placeShip(y, x, ins.direction, ins.shipSize);
+        System.out.println(""+ins.shipPlacementResult);
+        ins.infoDesk();
+    }
     
     public void infoDesk() {
         left1.setText("" + myMap.ship1);
@@ -54,17 +56,17 @@ public class SeaBattle extends javax.swing.JFrame {
         left3.setText("" + myMap.ship3);
         left4.setText("" + myMap.ship4);
 
-        if (direction) {
+        if (direction==0) {
             labelDirection.setText("→");
-        } else {
+        } else if (direction==1){
             labelDirection.setText("↓");
         }
-        
-        if (gameStatus==0) {
+
+        if (gameStatus == 0) {
             labelStatus.setText("Расстановка кораблей");
-        } else if (gameStatus==1) {
+        } else if (gameStatus == 1) {
             labelStatus.setText("Морской бой!");
-        } else if (gameStatus==2) {
+        } else if (gameStatus == 2) {
             labelStatus.setText("Игра окончена.");
         }
     }
@@ -115,12 +117,32 @@ public class SeaBattle extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jButton1.setText("1");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jButton2.setText("2");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         jButton3.setText("3");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
 
         jButton4.setText("4");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
 
         left2.setText("0");
 
@@ -268,13 +290,31 @@ public class SeaBattle extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
-        if (direction) {
-            direction = false;
-        } else {
-            direction = true;
+        if (direction==0) {
+            direction=1;
+            System.out.println("0-1:"+direction);
+        } else if (direction==1){
+            direction=0;
+            System.out.println("1-0:"+direction);
         }
         infoDesk();
     }//GEN-LAST:event_jButton5MouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        ins.shipSize=1;
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        ins.shipSize=2;
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        ins.shipSize=3;
+    }//GEN-LAST:event_jButton3MouseClicked
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        ins.shipSize=4;
+    }//GEN-LAST:event_jButton4MouseClicked
 
     /**
      * @param args the command line arguments
