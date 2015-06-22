@@ -17,24 +17,23 @@ public class JBExtended {
     int y;
     int x;
     boolean ioi;
+    MainInterface mi;
 //    SeaBattle seabattle = new SeaBattle();
 
     public JBExtended() {
     }
 
-    public JBExtended(JButton button, int y, int x) {
+    public JBExtended(JButton button, int y, int x, SeaBattle context) {
         this.button = button;
         this.y = y;
         this.x = x;
 
+        this.mi = (MainInterface) context;
+        
         this.button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-//                System.out.println("" + y + " " + x);
-                SeaBattle.getDataBackFromButton(y, x);
-                
-//                SeaBattle.getDataBackFromButton()
-                //SeaBattle.main(args); .whichButtony=y;
-                //seabattle.whichButtonx=x;
+                if(ioi)return;
+                  mi.transporter(y, x);
             }
         }
         );

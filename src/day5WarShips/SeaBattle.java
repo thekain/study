@@ -6,16 +6,17 @@
 package day5WarShips;
 
 import java.awt.GridLayout;
-//import java.util.Random;
+import java.util.Random;
 import javax.swing.*;
 
 /**
  *
  * @author Amilo
  */
-public class SeaBattle extends javax.swing.JFrame {
+public class SeaBattle extends javax.swing.JFrame implements MainInterface {
 
     Mapv3 myMap = new Mapv3();
+    Mapv3 enemyMap = new Mapv3();
     boolean gameResult;
     boolean placeResult;
     boolean shipPlacementResult;
@@ -23,9 +24,12 @@ public class SeaBattle extends javax.swing.JFrame {
     int gameStatus = 0;
     int shipSize = 1;
     JBExtended buttonArray[][] = new JBExtended[10][10];
-    JBExtended someButtonName = new JBExtended();   
+    JBExtended enemyField[][] = new JBExtended[10][10];
+    JBExtended someButtonName = new JBExtended();
+    int y;
+    int x;
+    Random rand = new Random();
 
-    
     /**
      * Creates new form SeaBattle
      */
@@ -35,30 +39,68 @@ public class SeaBattle extends javax.swing.JFrame {
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 JButton button = new JButton(" ");
-                buttonArray[i][j] = new JBExtended(button, i, j);
+                buttonArray[i][j] = new JBExtended(button, i, j, this);
                 battleField.add(buttonArray[i][j].button);
             }
         }
+
+        enemyPanel.setLayout(new GridLayout(10, 10));
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                JButton button = new JButton(" ");
+                enemyField[i][j] = new JBExtended(button, i, j, this);
+                enemyPanel.add(enemyField[i][j].button);
+            }
+        }
+
+        int success = 10;
+        while (success > 0) {
+            printPlacement();
+            if (placeResult == true) {
+                success--;
+            }
+        }
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (enemyMap.mainMap[i][j] == 1) {
+                    enemyField[i][j].button.setText("■");
+                } else if (enemyMap.mainMap[i][j] == 9) {
+                    enemyField[i][j].button.setText("□");
+                }
+            }
+        }
+
         infoDesk();
     }
 
-    static SeaBattle ins = new SeaBattle();    
-    static public void getDataBackFromButton (int y, int x) {
-        System.out.println("qqqqqqqq:"+ins.direction);
-        ins.shipPlacementResult=ins.myMap.placeShip(y, x, ins.direction, ins.shipSize);
-        System.out.println(""+ins.shipPlacementResult);
-        ins.infoDesk();
+    public void printPlacement() {
+        int num1 = rand.nextInt(10);
+        int num2 = rand.nextInt(10);
+        int num3 = rand.nextInt(2);
+        int num4 = rand.nextInt(5 - 1) + 1;
+//        System.out.println("Parameters: " + num1 + "," + num2 + "," + num3 + "," + num4);
+        gameResult = enemyMap.placeShip(num1, num2, num3, num4);
+//        gameResult = myMap.placeShip(6,5,1,1);
+        if (gameResult == true) {
+            System.out.println("Разместил");
+            placeResult = true;
+        } else {
+            System.out.println("Ошибка размещения");
+            placeResult = false;
+        }
+        System.out.println("===================");
     }
-    
+
     public void infoDesk() {
         left1.setText("" + myMap.ship1);
         left2.setText("" + myMap.ship2);
         left3.setText("" + myMap.ship3);
         left4.setText("" + myMap.ship4);
 
-        if (direction==0) {
+        if (direction == 0) {
             labelDirection.setText("→");
-        } else if (direction==1){
+        } else if (direction == 1) {
             labelDirection.setText("↓");
         }
 
@@ -67,6 +109,19 @@ public class SeaBattle extends javax.swing.JFrame {
         } else if (gameStatus == 1) {
             labelStatus.setText("Морской бой!");
         } else if (gameStatus == 2) {
+            labelStatus.setText("Игра окончена.");
+        }
+        if ((myMap.ship1 + myMap.ship2 + myMap.ship3 + myMap.ship4) == 0) {
+            gameStatus = 1;
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                    //buttonArray[i][j].button.setEnabled(false);
+                    buttonArray[i][j].ioi = true;
+                }
+            }
+        }
+        if (!enemyMap.keepPlaying()) {
+            gameStatus = 2;
             labelStatus.setText("Игра окончена.");
         }
     }
@@ -96,7 +151,7 @@ public class SeaBattle extends javax.swing.JFrame {
         labelDirection = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         labelStatus = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
+        enemyPanel = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -240,16 +295,16 @@ public class SeaBattle extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        enemyPanel.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout enemyPanelLayout = new javax.swing.GroupLayout(enemyPanel);
+        enemyPanel.setLayout(enemyPanelLayout);
+        enemyPanelLayout.setHorizontalGroup(
+            enemyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 0, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        enemyPanelLayout.setVerticalGroup(
+            enemyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 306, Short.MAX_VALUE)
         );
 
@@ -268,7 +323,7 @@ public class SeaBattle extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(battleField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(enemyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
@@ -282,7 +337,7 @@ public class SeaBattle extends javax.swing.JFrame {
                     .addComponent(battleField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(enemyPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -290,30 +345,30 @@ public class SeaBattle extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
-        if (direction==0) {
-            direction=1;
-            System.out.println("0-1:"+direction);
-        } else if (direction==1){
-            direction=0;
-            System.out.println("1-0:"+direction);
+        if (direction == 0) {
+            direction = 1;
+            System.out.println("0-1:" + direction);
+        } else if (direction == 1) {
+            direction = 0;
+            System.out.println("1-0:" + direction);
         }
         infoDesk();
     }//GEN-LAST:event_jButton5MouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        ins.shipSize=1;
+        shipSize = 1;
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        ins.shipSize=2;
+        shipSize = 2;
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        ins.shipSize=3;
+        shipSize = 3;
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
-        ins.shipSize=4;
+        shipSize = 4;
     }//GEN-LAST:event_jButton4MouseClicked
 
     /**
@@ -330,16 +385,21 @@ public class SeaBattle extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SeaBattle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeaBattle.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SeaBattle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeaBattle.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SeaBattle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeaBattle.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SeaBattle.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SeaBattle.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -353,6 +413,7 @@ public class SeaBattle extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel battleField;
+    private javax.swing.JPanel enemyPanel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -362,7 +423,6 @@ public class SeaBattle extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel labelDirection;
     private javax.swing.JLabel labelStatus;
@@ -371,4 +431,66 @@ public class SeaBattle extends javax.swing.JFrame {
     private javax.swing.JLabel left3;
     private javax.swing.JLabel left4;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void transporter(int y, int x) {
+        this.y = y;
+        this.x = x;
+
+        if (gameStatus == 0) {
+            if (myMap.placeShip(y, x, direction, shipSize)) {
+                for (int i = 0; i < 10; i++) {
+                    for (int j = 0; j < 10; j++) {
+                        if (myMap.mainMap[i][j] == 1) {
+                            buttonArray[i][j].button.setText("■");
+                        } else if (myMap.mainMap[i][j] == 9) {
+                            buttonArray[i][j].button.setText("□");
+                        }
+                    }
+                }
+
+            }
+        } else if (gameStatus == 1) {
+
+            int shootResult = enemyMap.placeShot(y, x);
+            System.out.println("Коорд Y:" + y + "; X:" + x);
+            if (shootResult == 0) {
+                System.out.println("Мимо");
+            }
+            if (shootResult == 1) {
+                System.out.println("Попадание");
+            }
+            if (shootResult == 2) {
+                System.out.println("УЖЕ Раненный");
+            }
+            if (shootResult == 3) {
+                System.out.println("УЖЕ Мимо");
+            }
+            if (shootResult == 7) {
+                System.out.println("Game Over");
+            }
+            if (shootResult == 8) {
+                System.out.println("УБИЛ");
+            }
+            System.out.println("===================");
+
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                    if (enemyMap.mainMap[i][j] == 1) {
+                        enemyField[i][j].button.setText("■");
+                    } else if (enemyMap.mainMap[i][j] == 9) {
+                        enemyField[i][j].button.setText("□");
+                    } else if (enemyMap.mainMap[i][j] == 2) {
+                        enemyField[i][j].button.setText("†");
+                    } else if (enemyMap.mainMap[i][j] == 3) {
+                        enemyField[i][j].button.setText("҉");
+                    }
+                }
+            }
+
+        }
+
+        infoDesk();
+
+    }
 }
