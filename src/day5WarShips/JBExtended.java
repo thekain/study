@@ -24,8 +24,8 @@ public class JBExtended {
 
         this.button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                //System.out.println("" + y + " " + x);
-            ioi=seabattle.myMap.placeShip(y, x, y, y);
+                System.out.println("" + y + " " + x);
+//            ioi=seabattle.myMap.placeShip(y, x, y, y);
             }
         }
         );
