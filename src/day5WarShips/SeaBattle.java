@@ -6,7 +6,7 @@
 package day5WarShips;
 
 import java.awt.GridLayout;
-import java.util.Random;
+//import java.util.Random;
 import javax.swing.*;
 
 /**
