@@ -3,27 +3,42 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package day7interfacesMine;
+package day7interfacesMine2;
 
 /**
  *
- * @author Amilo
+ * @author cnp.ak
  */
-public class FrameA extends javax.swing.JFrame implements Transporter {
+public class FrameA extends javax.swing.JFrame implements TransportInterface {
+    
+    FrameB windowB = new FrameB(this);
+    TransportInterface newTI;
 
     /**
      * Creates new form FrameA
      */
     public FrameA() {
         initComponents();
-        FrameB newWindow = new FrameB(this);
-        newWindow.setVisible(true);
+        this.newTI = (TransportInterface) windowB;
+        windowB.setVisible(true);
     }
 
-    public void retransmitter(String dataContainer){
+    public void transporter(String data){
+        label.setText(data);
+    }
     
+    public void initInterface(FrameB context) {
+        
     }
+    
+    interface MyCallback{
+        void callBackReturn();
+    }
+            
 
+    
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,15 +48,18 @@ public class FrameA extends javax.swing.JFrame implements Transporter {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        label = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("FRAME A");
+        label.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        label.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        label.setText("New text will appear right here");
 
-        jTextField1.setText("Input some text here");
+        jTextField1.setText("...");
 
         jButton1.setText("Send");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -50,6 +68,8 @@ public class FrameA extends javax.swing.JFrame implements Transporter {
             }
         });
 
+        jLabel1.setText("FRAME A");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -57,32 +77,35 @@ public class FrameA extends javax.swing.JFrame implements Transporter {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addComponent(label, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                    .addComponent(jTextField1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        // TODO add your handling code here:
+        this.newTI.transporter(jTextField1.getText());
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**
@@ -124,5 +147,6 @@ public class FrameA extends javax.swing.JFrame implements Transporter {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel label;
     // End of variables declaration//GEN-END:variables
 }

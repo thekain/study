@@ -9,22 +9,21 @@ package day7interfaces;
  *
  * @author Amilo
  */
-public class NewJFrame1 extends javax.swing.JFrame implements NewInterface1{
+public class NewJFrame1 extends javax.swing.JFrame implements NewInterface1 {
 
-    
     NewInterface eventListener;
+
     /**
      * Creates new form NewJFrame1
      */
     public NewJFrame1() {
         initComponents();
-        
-        
+
     }
-    
+
     public NewJFrame1(NewJFrame context) {
         initComponents();
-        eventListener = (NewInterface) context;   
+        eventListener = (NewInterface) context;
     }
 
     /**
@@ -83,7 +82,7 @@ public class NewJFrame1 extends javax.swing.JFrame implements NewInterface1{
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-    eventListener.texter(jTextField1.getText());
+        eventListener.texter(jTextField1.getText());
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**
@@ -130,7 +129,5 @@ public class NewJFrame1 extends javax.swing.JFrame implements NewInterface1{
     @Override
     public void texter(String word) {
         jLabel1.setText(word);
-
-//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
