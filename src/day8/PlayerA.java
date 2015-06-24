@@ -5,6 +5,10 @@
  */
 package day8;
 
+import java.awt.GridLayout;
+import java.util.Random;
+import javax.swing.*;
+
 /**
  *
  * @author cnp.ak
@@ -12,12 +16,66 @@ package day8;
 public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA{
 
     PlayerB playerB = new PlayerB(this);
+    MapEngine myMap = new MapEngine();
+    MapEngine enemyMap = new MapEngine();
+    boolean gameResult;
+    boolean placeResult;
+    boolean shipPlacementResult;
+    int direction = 0;
+    int gameStatus = 0;
+    int shipSize = 1;
+    JBExtended buttonArray[][] = new JBExtended[10][10];
+    JBExtended enemyField[][] = new JBExtended[10][10];
+    JBExtended someButtonName = new JBExtended();
+    int y;
+    int x;
+    Random rand = new Random(); 
+
     /**
      * Creates new form PlayerA
      */
     public PlayerA() {
         initComponents();
         playerB.setVisible(true);
+
+        jPanel1.setLayout(new GridLayout(10, 10));
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                JButton button = new JButton(" ");
+                buttonArray[i][j] = new JBExtended(button, i, j, this);
+                jPanel1.add(buttonArray[i][j].button);
+            }
+        }
+
+        jPanel2.setLayout(new GridLayout(10, 10));
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                JButton button = new JButton(" ");
+                enemyField[i][j] = new JBExtended(button, i, j, this);
+                jPanel2.add(enemyField[i][j].button);
+            }
+        }
+
+        int success = 10;
+        while (success > 0) {
+            printPlacement();
+            if (placeResult == true) {
+                success--;
+            }
+        }
+
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                if (enemyMap.mainMap[i][j] == 1) {
+                    enemyField[i][j].button.setText("■");
+                } else if (enemyMap.mainMap[i][j] == 9) {
+                    enemyField[i][j].button.setText("□");
+                }
+            }
+        }
+
+        infoDesk();
+        
     }
 
     @Override
