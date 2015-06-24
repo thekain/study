@@ -167,6 +167,7 @@ public class MapEngine {
                     }
                 }
                 result = 8;//убил
+                
             } else {
                 result = 1;//Попал!
             }

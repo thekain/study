@@ -18,23 +18,39 @@ public class JBExtended {
     int y;
     int x;
     boolean ioi;
-    MainInterface mi;
+    ButtonInterface mi;
 //    SeaBattle seabattle = new SeaBattle();
 
     public JBExtended() {
     }
 
-    public JBExtended(JButton button, int y, int x, SeaBattle context) {
+    public JBExtended(JButton button, int y, int x, PlayerA context) {
         this.button = button;
         this.y = y;
         this.x = x;
 
-        this.mi = (MainInterface) context;
+        this.mi = (ButtonInterface) context;
         
         this.button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if(ioi)return;
-                  mi.transporter(y, x);
+                  mi.buttonTransmitter(y, x);
+            }
+        }
+        );
+    }
+    
+        public JBExtended(JButton button, int y, int x, PlayerB context) {
+        this.button = button;
+        this.y = y;
+        this.x = x;
+
+        this.mi = (ButtonInterface) context;
+        
+        this.button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if(ioi)return;
+                  mi.buttonTransmitter(y, x);
             }
         }
         );

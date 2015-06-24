@@ -10,5 +10,6 @@ package day8;
  * @author cnp.ak
  */
 public interface AccessingPlayerA {
-    public void transmitter();
+    public int transmitter (int y, int x);
+    public int gamestatus ();
 }

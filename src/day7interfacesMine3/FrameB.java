@@ -20,6 +20,8 @@ public class FrameB extends javax.swing.JFrame {
 
     public FrameB(FrameA framea) {
         initComponents();
+        
+        
     }
     
     public void setter (String data){
