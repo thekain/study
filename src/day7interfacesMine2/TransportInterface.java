@@ -11,5 +11,5 @@ package day7interfacesMine2;
  */
 public interface TransportInterface {
     public void transporter(String data);
-    public void initInterface(FrameB context);
+
 }

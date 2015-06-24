@@ -10,7 +10,7 @@ package day7interfacesMine2;
  * @author cnp.ak
  */
 public class FrameA extends javax.swing.JFrame implements TransportInterface {
-    
+
     FrameB windowB = new FrameB(this);
     TransportInterface newTI;
 
@@ -23,22 +23,11 @@ public class FrameA extends javax.swing.JFrame implements TransportInterface {
         windowB.setVisible(true);
     }
 
-    public void transporter(String data){
+    @Override
+    public void transporter(String data) {
         label.setText(data);
     }
-    
-    public void initInterface(FrameB context) {
-        
-    }
-    
-    interface MyCallback{
-        void callBackReturn();
-    }
-            
 
-    
-    
-    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -149,4 +138,5 @@ public class FrameA extends javax.swing.JFrame implements TransportInterface {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel label;
     // End of variables declaration//GEN-END:variables
+
 }
