@@ -90,7 +90,8 @@ public class FrameB extends javax.swing.JFrame implements TransportInterface {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        this.newTIA.transporter(label.getText());
+        this.newTIA.transporter(jTextField1.getText());
+        System.out.println(jTextField1.getText());
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**
