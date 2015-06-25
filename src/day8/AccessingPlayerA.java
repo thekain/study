@@ -12,4 +12,5 @@ package day8;
 public interface AccessingPlayerA {
     public int transmitter (int y, int x);
     public int gamestatus ();
+    public void turn();
 }

@@ -30,6 +30,7 @@ public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA, But
     int y;
     int x;
     Random rand = new Random();
+    boolean myturn = true;
 
     public PlayerA() {
         initComponents();
@@ -119,12 +120,15 @@ public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA, But
                 }
 
             }
-        } else if (gameStatus == 1 && playerB.gameStatus == 1) {
+        } else if (gameStatus == 1 && playerB.gameStatus == 1 && this.myturn) {
+
             int shootResult = playerB.myMap.placeShot(y, x);
             System.out.println("Коорд Y:" + y + "; X:" + x);
             if (shootResult == 0) {
                 System.out.println("Мимо");
                 enemyField[y][x].button.setText("҉");
+                this.myturn = false;
+                playerB.myturn = true;
             }
             if (shootResult == 1) {
                 System.out.println("Попадание");
@@ -132,9 +136,13 @@ public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA, But
             }
             if (shootResult == 2) {
                 System.out.println("УЖЕ Раненный");
+                this.myturn = false;
+                playerB.myturn = true;
             }
             if (shootResult == 3) {
                 System.out.println("УЖЕ Мимо");
+                this.myturn = false;
+                playerB.myturn = true;
             }
             if (shootResult == 7) {
                 System.out.println("Game Over");
@@ -143,9 +151,11 @@ public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA, But
                 System.out.println("УБИЛ");
             }
             System.out.println("===================");
+
         } else if (gameStatus == 1 && playerB.gameStatus == 0) {
             gameStatus = 3;
         }
+
         infoDesk();
     }
 
@@ -157,6 +167,11 @@ public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA, But
     @Override
     public int gamestatus() {
         return gameStatus;
+    }
+
+    @Override
+    public void turn() {
+        this.myturn = true;
     }
 
     /**

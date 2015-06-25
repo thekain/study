@@ -31,6 +31,7 @@ public class PlayerB extends javax.swing.JFrame implements ButtonInterface {
     int x;
     Random rand = new Random();
     AccessingPlayerA accessinterface;
+    boolean myturn = false;
 
     public PlayerB() {
         initComponents();
@@ -78,20 +79,26 @@ public class PlayerB extends javax.swing.JFrame implements ButtonInterface {
                 }
 
             }
-        } else if (gameStatus == 1 && accessinterface.gamestatus() == 1) {
+        } else if (gameStatus == 1 && accessinterface.gamestatus() == 1 && this.myturn) {
             int shootResult = accessinterface.transmitter(y, x);
             System.out.println("Коорд Y:" + y + "; X:" + x);
             if (shootResult == 0) {
                 System.out.println("Мимо");
+                this.myturn = false;
+                accessinterface.turn();
             }
             if (shootResult == 1) {
                 System.out.println("Попадание");
             }
             if (shootResult == 2) {
                 System.out.println("УЖЕ Раненный");
+                this.myturn = false;
+                accessinterface.turn();
             }
             if (shootResult == 3) {
                 System.out.println("УЖЕ Мимо");
+                this.myturn = false;
+                accessinterface.turn();
             }
             if (shootResult == 7) {
                 System.out.println("Game Over");
@@ -118,8 +125,8 @@ public class PlayerB extends javax.swing.JFrame implements ButtonInterface {
                     buttonArray[i][j].ioi = true;
                 }
             }
-        }        
-        
+        }
+
         if (direction == 0) {
             labelDirection.setText("→");
         } else if (direction == 1) {
@@ -136,8 +143,7 @@ public class PlayerB extends javax.swing.JFrame implements ButtonInterface {
 
         /**
          * if (!enemyMap.keepPlaying()) { gameStatus = 2;
-         * labelStatus.setText("Игра окончена.");
-        }*
+         * labelStatus.setText("Игра окончена."); }*
          */
     }
 
@@ -184,11 +190,11 @@ public class PlayerB extends javax.swing.JFrame implements ButtonInterface {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 298, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         left3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -283,13 +289,9 @@ public class PlayerB extends javax.swing.JFrame implements ButtonInterface {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2))
+                                .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel3))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -302,7 +304,12 @@ public class PlayerB extends javax.swing.JFrame implements ButtonInterface {
                                 .addComponent(jButton5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(labelDirection)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 721, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(61, 61, 61)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -315,9 +322,9 @@ public class PlayerB extends javax.swing.JFrame implements ButtonInterface {
                     .addComponent(jLabel2)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
