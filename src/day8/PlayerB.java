@@ -39,7 +39,7 @@ public class PlayerB extends javax.swing.JFrame implements ButtonInterface {
     public PlayerB(PlayerA playerA) {
         initComponents();
         accessinterface = (AccessingPlayerA) playerA;
-
+        infoDesk();
         jPanel1.setLayout(new GridLayout(10, 10));
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
@@ -110,6 +110,16 @@ public class PlayerB extends javax.swing.JFrame implements ButtonInterface {
         left3.setText("" + myMap.ship3);
         left4.setText("" + myMap.ship4);
 
+        if ((myMap.ship1 + myMap.ship2 + myMap.ship3 + myMap.ship4) == 0) {
+            gameStatus = 1;
+            for (int i = 0; i < 10; i++) {
+                for (int j = 0; j < 10; j++) {
+                    //buttonArray[i][j].button.setEnabled(false);
+                    buttonArray[i][j].ioi = true;
+                }
+            }
+        }        
+        
         if (direction == 0) {
             labelDirection.setText("→");
         } else if (direction == 1) {
@@ -123,15 +133,7 @@ public class PlayerB extends javax.swing.JFrame implements ButtonInterface {
         } else if (gameStatus == 2) {
             labelStatus.setText("Игра окончена.");
         }
-        if ((myMap.ship1 + myMap.ship2 + myMap.ship3 + myMap.ship4) == 0) {
-            gameStatus = 1;
-            for (int i = 0; i < 10; i++) {
-                for (int j = 0; j < 10; j++) {
-                    //buttonArray[i][j].button.setEnabled(false);
-                    buttonArray[i][j].ioi = true;
-                }
-            }
-        }
+
         /**
          * if (!enemyMap.keepPlaying()) { gameStatus = 2;
          * labelStatus.setText("Игра окончена.");

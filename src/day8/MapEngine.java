@@ -15,10 +15,17 @@ public class MapEngine {
 
     int mainMap[][] = new int[10][10];
     int aliveAcounter;
+
     int ship1 = 4;
     int ship2 = 3;
     int ship3 = 2;
     int ship4 = 1;
+
+    int ship1left = 4;
+    int ship2left = 3;
+    int ship3left = 2;
+    int ship4left = 1;
+
     int flotCount = 0;
     Ship flot[] = new Ship[10];
 
@@ -26,7 +33,7 @@ public class MapEngine {
     public boolean placeShip(int y, int x, int direction, int size) {
         System.out.println("Параметры: " + y + "," + x + "," + direction + "," + size);
         //direction: 0-right, 1- down
-//        проверка, верно ли заданы входные параметры.
+        //проверка, верно ли заданы входные параметры.
         if (x < 0
                 || x > 10
                 || y < 0
@@ -116,7 +123,7 @@ public class MapEngine {
             }
         }
 
-        // выводим карту
+        //выводим карту
         for (int i = 0; i < 10; i++) {
             for (int j = 0; j < 10; j++) {
                 System.out.print(mainMap[i][j] + " ");
@@ -144,7 +151,6 @@ public class MapEngine {
 
     /**
      * метод стрельбы получаем координаты и возвращаем результат
-     *
      */
     public int placeShot(int y, int x) {
         int result = 0;
@@ -157,6 +163,17 @@ public class MapEngine {
             flot[index].alive = isAlive(index);
 
             if (!flot[index].alive) {
+
+                if (flot[index].size == 1) {
+                    ship1left--;
+                } else if (flot[index].size == 2) {
+                    ship2left--;
+                } else if (flot[index].size == 3) {
+                    ship3left--;
+                } else if (flot[index].size == 4) {
+                    ship4left--;
+                }
+
                 for (int i = flot[index].y - 1; i < flot[index].yend + 2; i++) {
                     if (i >= 0 && i < 10) {
                         for (int j = flot[index].x - 1; j < flot[index].xend + 2; j++) {
@@ -167,7 +184,6 @@ public class MapEngine {
                     }
                 }
                 result = 8;//убил
-                
             } else {
                 result = 1;//Попал!
             }
@@ -184,11 +200,10 @@ public class MapEngine {
             }
             System.out.println("");
         }
-        
-        if (!keepPlaying()){
+
+        if (!keepPlaying()) {
             return 7;
         }
-        
         return result;
     }
 
@@ -224,5 +239,4 @@ public class MapEngine {
         }
         return false;
     }
-
 }
