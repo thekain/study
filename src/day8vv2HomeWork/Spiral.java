@@ -42,7 +42,7 @@ public class Spiral {
         }
 
         while (data<arraysize*arraysize) {
-            go(direction);
+          //  go();direction
         }
         
         vivod();
