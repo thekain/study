@@ -6,8 +6,13 @@
 package day8;
 
 import java.awt.GridLayout;
+import java.awt.Image;
+import java.io.IOException;
 import java.util.Random;
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 /**
  *
@@ -31,6 +36,8 @@ public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA, But
     int x;
     Random rand = new Random();
     boolean myturn = true;
+    private Object button;
+    MakeSound sounder = new MakeSound();
 
     public PlayerA() {
         initComponents();
@@ -73,9 +80,22 @@ public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA, But
         }
 
         if (direction == 0) {
-            labelDirection.setText("→");
+            try {
+                Image img = ImageIO.read(getClass().getResource("right.png"));
+                labelDirection.setIcon(new ImageIcon(img));
+                labelDirection.setHorizontalTextPosition(SwingConstants.CENTER);
+            } catch (IOException ex) {
+            }
+            //labelDirection.setText("→");
         } else if (direction == 1) {
-            labelDirection.setText("↓");
+            try {
+                Image img = ImageIO.read(getClass().getResource("down.png"));
+                labelDirection.setIcon(new ImageIcon(img));
+                labelDirection.setHorizontalTextPosition(SwingConstants.CENTER);
+            } catch (IOException ex) {
+            }
+
+//            labelDirection.setText("↓");
         }
 
         if (gameStatus == 0) {
@@ -112,9 +132,21 @@ public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA, But
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 10; j++) {
                         if (myMap.mainMap[i][j] == 1) {
-                            buttonArray[i][j].button.setText("■");
+                            try {
+                                Image img = ImageIO.read(getClass().getResource("ship.png"));
+                                buttonArray[i][j].button.setIcon(new ImageIcon(img));
+                                buttonArray[i][j].button.setHorizontalTextPosition(SwingConstants.CENTER);
+                            } catch (IOException ex) {
+                            }
+                            //buttonArray[i][j].button.setText("■");
                         } else if (myMap.mainMap[i][j] == 9) {
-                            buttonArray[i][j].button.setText("□");
+                            try {
+                                Image img = ImageIO.read(getClass().getResource("reserved.png"));
+                                buttonArray[i][j].button.setIcon(new ImageIcon(img));
+                                buttonArray[i][j].button.setHorizontalTextPosition(SwingConstants.CENTER);
+                            } catch (IOException ex) {
+                            }
+//buttonArray[i][j].button.setText("□");
                         }
                     }
                 }
@@ -126,13 +158,28 @@ public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA, But
             System.out.println("Коорд Y:" + y + "; X:" + x);
             if (shootResult == 0) {
                 System.out.println("Мимо");
-                enemyField[y][x].button.setText("҉");
+                //enemyField[y][x].button.setText("҉");
+                try {
+                    Image img = ImageIO.read(getClass().getResource("mimo.png"));
+                    enemyField[y][x].button.setIcon(new ImageIcon(img));
+                    enemyField[y][x].button.setHorizontalTextPosition(SwingConstants.CENTER);
+                } catch (IOException ex) {
+                }
                 this.myturn = false;
                 playerB.myturn = true;
             }
             if (shootResult == 1) {
                 System.out.println("Попадание");
-                enemyField[y][x].button.setText("☼");
+                //enemyField[y][x].button.setText("☼");
+
+                try {
+                    Image img = ImageIO.read(getClass().getResource("ship_dead.png"));
+                    enemyField[y][x].button.setIcon(new ImageIcon(img));
+                    enemyField[y][x].button.setHorizontalTextPosition(SwingConstants.CENTER);
+                    sounder.playSound("C:\\Users\\cnp.ak\\Documents\\NetBeansProjects\\study\\build\\classes\\day8\\folder\\shipkill.wav");
+                } catch (IOException ex) {
+                }
+
             }
             if (shootResult == 2) {
                 System.out.println("УЖЕ Раненный");
@@ -301,7 +348,7 @@ public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA, But
         left4.setText("jLabel4");
 
         labelDirection.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        labelDirection.setText("jLabel4");
+        labelDirection.setText(" ");
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jLabel9.setText("Состояние игры");
@@ -357,17 +404,19 @@ public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA, But
                                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton3)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(left3)
+                                        .addGap(28, 28, 28)
+                                        .addComponent(jButton5))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jButton4)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(left4)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(left3))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(left4))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelDirection)))
+                                .addComponent(labelDirection, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -424,11 +473,7 @@ public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA, But
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4)
-                            .addComponent(left4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton5)
-                            .addComponent(labelDirection)))
+                            .addComponent(left4)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -440,18 +485,22 @@ public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA, But
                             .addComponent(jLabel5)
                             .addComponent(jLabel10))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel11))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel12))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel13))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel11))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jButton5))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel13)))
+                            .addComponent(labelDirection, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
