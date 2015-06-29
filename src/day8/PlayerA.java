@@ -176,7 +176,7 @@ public class PlayerA extends javax.swing.JFrame implements AccessingPlayerA, But
                     Image img = ImageIO.read(getClass().getResource("ship_dead.png"));
                     enemyField[y][x].button.setIcon(new ImageIcon(img));
                     enemyField[y][x].button.setHorizontalTextPosition(SwingConstants.CENTER);
-                    sounder.playSound("C:\\Users\\cnp.ak\\Documents\\NetBeansProjects\\study\\build\\classes\\day8\\folder\\shipkill.wav");
+                    sounder.playSound("C:\\Users\\Amilo\\Documents\\NetBeansProjects\\Test\\build\\classes\\day8\\folder\\shipkill.wav");
                 } catch (IOException ex) {
                 }
 
