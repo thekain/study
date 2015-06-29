@@ -5,6 +5,11 @@
  */
 package day9plus1;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Amilo
@@ -16,6 +21,57 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        List<String> list = new ArrayList<String>();
+        List<Storage> storageList = new ArrayList<Storage>();
+        Storage storage;
+
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\_eclipse\\_files\\price.txt"))) {
+            String string;
+            while ((string = br.readLine()) != null) {
+                String[] starr = string.split("!!!");
+                try {
+                    //System.out.println(starr[2]);
+                    String priceR = "";
+                    String priceO = "";
+                    //starr[3].replace(' ', '');
+
+                    for (int i = 0; i < starr[3].length(); i++) {
+                        if (starr[3].charAt(i) != ' ') {
+                            priceR += starr[3].charAt(i);
+                        }
+                    }
+
+                    for (int i = 0; i < starr[4].length(); i++) {
+                        if (starr[4].charAt(i) != ' ') {
+                            priceO += starr[4].charAt(i);
+                        }
+                    }
+
+                    storage = new Storage(
+                            Integer.parseInt(starr[1]),
+                            starr[2],
+                            Integer.parseInt(priceR),
+                            Integer.parseInt(priceO),
+                            starr[5]);
+
+                    list.add(starr[2]);
+                    storageList.add(storage);
+                } catch (Exception arr) {
+                    //arr.printStackTrace();
+                }
+            }
+
+//            for(String item : list){
+//                System.out.println(item);
+//            }
+            for (Storage storageItem : storageList) {
+                System.out.println(storageItem.toString());
+            }
+
+        } catch (Exception e) {
+
+        }
+
     }
 
     /**
