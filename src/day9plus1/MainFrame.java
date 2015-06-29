@@ -66,7 +66,7 @@ public class MainFrame extends javax.swing.JFrame {
 //            }
             for (Storage storageItem : storageList) {
                 System.out.println(storageItem.toString());
-                table.
+                //table.
             }
 
         } catch (Exception e) {
