@@ -28,7 +28,7 @@ public class SearchForm extends javax.swing.JFrame {
     public SearchForm() {
         initComponents();
 
-        try (BufferedReader br = new BufferedReader(new FileReader("C:\\_Development\\WorkFiles\\day9plus1\\price.txt"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Amilo\\Desktop\\Dropbox\\day9plus1\\price.txt"))) {
             String tempString;
             while ((tempString = br.readLine()) != null) {
                 String priceR = "";
