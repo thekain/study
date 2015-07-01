@@ -11,7 +11,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JFileChooser;
 import javax.swing.RowFilter;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -30,7 +32,9 @@ public class SearchForm extends javax.swing.JFrame {
      */
     public SearchForm() {
         initComponents();
-
+       
+this.jFileChooser1.setFileFilter(new Au3());
+        
         try (BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Amilo\\Desktop\\Dropbox\\day9plus1\\price.txt"))) {
             String tempString;
             while ((tempString = br.readLine()) != null) {
@@ -94,6 +98,7 @@ public class SearchForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jFileChooser1 = new javax.swing.JFileChooser();
         label = new javax.swing.JLabel();
         textField = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -101,6 +106,7 @@ public class SearchForm extends javax.swing.JFrame {
         outputTable = new javax.swing.JTable();
         jTextField1 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -135,6 +141,13 @@ public class SearchForm extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setText("Open File");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,9 +163,12 @@ public class SearchForm extends javax.swing.JFrame {
                             .addComponent(jButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2))
-                        .addGap(0, 533, Short.MAX_VALUE)))
+                            .addComponent(jButton2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton3)))
+                        .addGap(0, 448, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -161,14 +177,15 @@ public class SearchForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(textField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addComponent(label, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -177,7 +194,7 @@ public class SearchForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     TableRowSorter<TableModel> sorter;
-    
+
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         outputTable.setAutoResizeMode(outputTable.AUTO_RESIZE_OFF);
         String parameter0 = "";
@@ -295,27 +312,64 @@ public class SearchForm extends javax.swing.JFrame {
                     o[4] = arrayList.get(i).warranty;
                     model.addRow(o);
                 }
-            } 
+            }
             outputTable.setModel(model);
-          
+
             this.sorter = new TableRowSorter<TableModel>(model);
             outputTable.setRowSorter(sorter);
     }//GEN-LAST:event_jButton1MouseClicked
     }
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        String field2=jTextField1.getText();
+        String field2 = jTextField1.getText();
         try {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)"+field2));
-        } catch(Exception lalala){
-            
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + field2));
+        } catch (Exception lalala) {
+
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2MouseClicked
-    
+
+    class Au3 extends FileFilter {
+
+        @Override
+        public boolean accept(File f) {
+            if (f.isDirectory()) {
+                return true;
+            }
+            
+            String extension=null;
+            String filename = f.getName();
+            int position = filename.lastIndexOf(".");
+            if (position>0 && position<filename.length()) {
+                extension=filename.substring(position+1,filename.length()).toLowerCase(); //filename.length( не обязательный параметр, т.к. по дефолту до конца
+            }
+            if (extension!=null) {
+                return extension.equals("au3");
+            }
+            
+            
+            return false;
+        }
+
+        @Override
+        public String getDescription() {
+            return "AutoIT files *.au3";
+        }
+
+    }
+
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        // jFileChooser1.
+        int result = this.jFileChooser1.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File file = this.jFileChooser1.getSelectedFile();
+            System.out.println(file.getName());
+        }
+    }//GEN-LAST:event_jButton3MouseClicked
+
     /**
-         * @param args the command line arguments
-         */
-    
-    
+     * @param args the command line arguments
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -351,6 +405,8 @@ public class SearchForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel label;
