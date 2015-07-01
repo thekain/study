@@ -1,0 +1,104 @@
+User-agent: *
+
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+Disallow:/portfolio/ambulans-helikopter/feed
+Disallow:/portfolio/ambulans-ucak/feed
+Disallow:/AC%C4%B0L%20HAVA%20AMBULANSI
+Disallow:/bornova-izmir-oto-kiralama.html
+Disallow:/bayindir-izmir-oto-kiralama.html
+Disallow:/beydag-izmir-oto-kiralama.html
+Disallow:/balcova-izmir-oto-kiralama.html
+Disallow:/bergama-izmir-oto-kiralama.html
+Disallow:/merkez-izmir-oto-kiralama.html
+Disallow:/wp-content/themes/havaambulansi
+Disallow: /we-believe-in-leaders.html
+Disallow: /www.havaambulansi24.com/
+Disallow: /man-true-style.html
+Disallow: /tag/ankara-hava-ambulan
+Disallow: /wp-content/uploads/2015/03/havaambulans
+Disallow: /wp-content/uploads/2014/02/Ads
+Disallow: /wp-content/uploads/2014/04/Ads
+Disallow: /wp-content/uploads/2014/01/hava-ambulans-hava-ambulans
+Disallow: /tag/ambulans-ucaklar/www.havaambulansi24.com/
+Disallow: /wp-content/uploads/2015/05/Ads
+Disallow: /tag/ucus-takip-formu/www.havaambulansi24.com/
+Disallow: /tag/ambulans-ucak-ucus-takip-formu/www.havaambulansi24.com/
+Disallow: /s-s-s
+Disallow: /wp-content/uploads/2014/06/ambulans-u
+Disallow: /wp-content/uploads/2014/03/jet-ambulans
+Disallow: /hello-world.html
+Disallow: /merhaba-dunya.html
+Disallow: /wp-content/uploads/2014/03/ambulans-u
+Disallow: /wp-content/uploads/2015/03/U
+Disallow: /wp-content/uploads/2014/05/Ads
+Disallow: /tag/ucak-ambulans-hizmet/www.havaambulansi24.com/
+Disallow: /uncategorized
+Disallow: /hello-world-2.html
+Disallow: /a-quick-breakdown.html
+Disallow: /asdasdasd.html
+Disallow: /tag/ucusa-elverislilik-belgesi/www.havaambulansi24.com/
+Disallow: /tag/ambulans-ucak-ihalesinde-istenilen-evraklar/www.havaambulansi24.com/
+Disallow: /tag/ucus-kayit-defteri/www.havaambulansi24.com/
+Disallow: /tag/ticari-hava-tasima-isletmeleri-yonetmeligi/www.havaambulansi24.com/
+Disallow: /tag/ambulans-ucak-teknik-sartnamesi/www.havaambulansi24.com/
+Disallow: /tag/ambulans-ucak-teknik-sartname/www.havaambulansi24.com/
+Disallow: /tag/konuslanma-bolgelerinde-ambulans-ucaklar/www.havaambulansi24.com/
+Disallow: /tag/shy-6a/www.havaambulansi24.com/
+Disallow: /tag/saglik-bakanligi-hava-ambulans/www.havaambulansi24.com/
+Disallow: /tag/icao/www.havaambulansi24.com/
+Disallow: /tag/ambulans-ucaklar-ucaklarinin-hizmet-kontrolu/www.havaambulansi24.com/
+Disallow: /tag/ambulans-ucak-ihalesi-form/www.havaambulansi24.com/
+Disallow: /tag/hava-ambulansi-hizmet-alimi-idari-sartname/www.havaambulansi24.com/
+Disallow: /tag/jaa/www.havaambulansi24.com/
+Disallow: /tag/easa/www.havaambulansi24.com/
+Disallow: /tag/hava-ambulans-isletilmesi/www.havaambulansi24.com/
+Disallow: /ambulans
+Disallow: /portfolio/antalya-ambulans-helikopter/feed
+
+
+
+Sitemap: http://www.havaambulansi24.com/sitemapindex.xml
+
+Disallow:/portfolio/ankara-ambulans-jet/feed
+Disallow:/portfolio/acil-ambulans-jet/feed
+Disallow:/portfolio/istanbul-ambulans-helikopter/feed
+Disallow:/portfolio/ambulans-ucak-fiyatlari/feed
+Disallow:/portfolio/helikopter-ambulans/feed
+Disallow:/portfolio/ucak-ambulans/feed
+Disallow:/portfolio/ankara-ambulans-helikopter/feed
+Disallow:/portfolio/medikal-eskort/feed
+Disallow:/portfolio-category/havaambulansi/page/2
+Disallow:/slider/ambulans-helikopter
+Disallow:/portfolio/istanbul-ambulans-jet-kiralama/feed
+Disallow:/ambulans-ucak-noktalari-worldwide
+Disallow:/dunya-ambulans-ucak-noktalari
+Disallow:/portfolio/ucak-ambulans-foto-2/feed
+Disallow:/www.havaambulansi24.com/ambulans-ucak-fiyatlari-ne-kadar.html
+Disallow:/portfolio/ambulans-jet-2/feed
+Disallow:/portfolio/antalya-ambulans-jet/feed
+Disallow:/portfolio/ambulans-jet/feed
+Disallow:/portfolio/ambulans-ucak-kiralama-fiyatlari/feed
+Disallow:/portfolio/acil-ambulans-ucak/feed
+Disallow:/portfolio/ambulans-ucak-cenaze-nakli/feed
+Disallow:/portfolio/antalya-ambulans-helikopter/feed
+Disallow:/portfolio/ambulans-ucak-sirketleri/feed
+Disallow:/portfolio/libya-ambulans-ucak/feed
+Disallow:/portfolio/ozel-ambulans-ucak/feed
+Disallow:/portfolio/ozel-ucak-ambulans/feed
+Disallow:/portfolio/ambulans-ucakla-cenaze-nakli/feed
+Disallow:/portfolio/antalya-ambulans-ucak/feed
+Disallow:/portfolio/izmir-ambulans-jet/feed
+Disallow:/portfolio/hava-ambulans-kiralama/feed
+Disallow:/portfolio/ucak-ambulans-foto/feed
+Disallow:/portfolio/ambulans-ucak-foto/feed
+Disallow:/ucak-ambulans-kiralama-ve-dunya-havalimani-noktalari.html
+Disallow:/portfolio/erbil-ambulans-ucak/feed
+Disallow:/portfolio/kiralik-ucak-ambulans/feed
+Disallow:/portfolio/ankara-ambulans-ucak/feed
+Disallow:/portfolio/istanbul-ambulans-ucak/feed
+Disallow:/portfolio/ucak-ambulans-kiralama/feed
+Disallow:/ambulans-ucak-noktalari-worldwidehttp:/
+Disallow:/bati-avrupa-ambulans-jet-ucak.htmlhttp:/
+Disallow:/portfolio/hava-ambulansi-foto/feed
+Disallow:/portfolio/ambulans-helikopter-foto/feed
