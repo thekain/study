@@ -26,18 +26,39 @@ public class PPlog extends javax.swing.JFrame {
             BufferedReader br = new BufferedReader(new FileReader("C:\\_Development\\WorkFiles\\day9plus1\\paymentpages.log"));
             String tempString = "";
             String timeStamp = "";
+            String timeStampReg = "";            
             String regString = "";
             while ((tempString = br.readLine()) != null) {
                 //System.out.println(tempString);
-                regString += tempString.charAt(1);
-                //System.out.println(regString);
-                if (regString.matches("\\d+")) {
-                    System.out.println(tempString.charAt(1));
+                try {
+                    regString += tempString.charAt(1);
+                    if (regString.matches("\\d+")) {
+                        for (int i = 0; i < 24; i++) {
+                            timeStamp += tempString.charAt(i);                            
+                        }
+                        timeStampReg = timeStamp;
+                        //System.out.println(timeStamp + "]");
+                    }
+
+                } catch (Exception nodata) {
+
                 }
+                                
+                if (regString.matches("")) {
+                    //System.out.println(timeStamp+"No data");
+                }
+                
+                if (!regString.matches("") && !regString.matches("\\d+")){
+                    System.out.println(timeStampReg+"] " + tempString);
+                }
+                
+                //System.out.println(regString);
+
                 regString = "";
+                timeStamp = "";
             }
         } catch (Exception fileread) {
-            fileread.printStackTrace();
+            //fileread.printStackTrace();
         }
     }
 
