@@ -23,7 +23,7 @@ public class PPlog extends javax.swing.JFrame {
     public PPlog() {
         initComponents();
         try {
-            BufferedReader br = new BufferedReader(new FileReader("C:\\_Development\\WorkFiles\\day9plus1\\paymentpages.log"));
+            BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\Amilo\\Desktop\\Dropbox\\day9plus1\\paymentpages.log"));
             String tempString = "";
             String timeStamp = "";
             String timeStampReg = "";            
