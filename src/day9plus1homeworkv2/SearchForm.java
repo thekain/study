@@ -159,6 +159,7 @@ public class SearchForm extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         outputTable.setAutoResizeMode(outputTable.AUTO_RESIZE_OFF);
+        String parameter0 = "";
         String parameter1 = "";
         String parameter2 = "";
         String fullSearchString = textField.getText();
@@ -174,13 +175,15 @@ public class SearchForm extends javax.swing.JFrame {
                     for (int i = 1; i < splittedSearchString[v].length(); i++) {
                         parameter1 += splittedSearchString[v].charAt(i);
                     }
-                    System.out.println("<" + parameter1);
-                }
-                if (splittedSearchString[v].charAt(0) == '>') {
+                    System.out.println("1<:" + parameter1);
+                } else if (splittedSearchString[v].charAt(0) == '>') {
                     for (int i = 1; i < splittedSearchString[v].length(); i++) {
                         parameter2 += splittedSearchString[v].charAt(i);
                     }
-                    System.out.println(">" + parameter2);
+                    System.out.println("2>:" + parameter2);
+                } else if (splittedSearchString[v].charAt(0) != '>' && splittedSearchString[v].charAt(0) != '<') {
+                    parameter0 += splittedSearchString[v];
+                    System.out.println("0:" + parameter0);
                 }
             }
         } catch (Exception uslovie) {
@@ -222,8 +225,8 @@ public class SearchForm extends javax.swing.JFrame {
         for (int i = 0; i < arrayList.size(); i++) {
 
             if (!parameter1.equals("") && !parameter2.equals("")) {
-                if (arrayList.get(i).description.toLowerCase().indexOf(searchItem.toLowerCase()) != -1 && arrayList.get(i).priceR > Integer.parseInt(parameter2) && arrayList.get(i).priceR < Integer.parseInt(parameter1)) {
-                    Object[] o = new Object[8];
+                if (arrayList.get(i).description.toLowerCase().indexOf(parameter0.toLowerCase()) != -1 && arrayList.get(i).priceR > Integer.parseInt(parameter2) && arrayList.get(i).priceR < Integer.parseInt(parameter1)) {
+                    Object[] o = new Object[5];
                     o[0] = arrayList.get(i).id;
                     o[1] = arrayList.get(i).description;
                     o[2] = arrayList.get(i).priceR;
@@ -232,8 +235,8 @@ public class SearchForm extends javax.swing.JFrame {
                     model.addRow(o);
                 }
             } else if (!parameter1.equals("") && parameter2.equals("")) {
-                if (arrayList.get(i).description.toLowerCase().indexOf(searchItem.toLowerCase()) != -1 && arrayList.get(i).priceR < Integer.parseInt(parameter1)) {
-                    Object[] o = new Object[8];
+                if (arrayList.get(i).description.toLowerCase().indexOf(parameter0.toLowerCase()) != -1 && arrayList.get(i).priceR < Integer.parseInt(parameter1)) {
+                    Object[] o = new Object[5];
                     o[0] = arrayList.get(i).id;
                     o[1] = arrayList.get(i).description;
                     o[2] = arrayList.get(i).priceR;
@@ -242,8 +245,8 @@ public class SearchForm extends javax.swing.JFrame {
                     model.addRow(o);
                 }
             } else if (parameter1.equals("") && !parameter2.equals("")) {
-                if (arrayList.get(i).description.toLowerCase().indexOf(searchItem.toLowerCase()) != -1 && arrayList.get(i).priceR > Integer.parseInt(parameter2)) {
-                    Object[] o = new Object[8];
+                if (arrayList.get(i).description.toLowerCase().indexOf(parameter0.toLowerCase()) != -1 && arrayList.get(i).priceR > Integer.parseInt(parameter2)) {
+                    Object[] o = new Object[5];
                     o[0] = arrayList.get(i).id;
                     o[1] = arrayList.get(i).description;
                     o[2] = arrayList.get(i).priceR;
@@ -252,8 +255,8 @@ public class SearchForm extends javax.swing.JFrame {
                     model.addRow(o);
                 }
             } else if (parameter1.equals("") && parameter2.equals("")) {
-                if (arrayList.get(i).description.toLowerCase().indexOf(searchItem.toLowerCase()) != -1) {
-                    Object[] o = new Object[8];
+                if (arrayList.get(i).description.toLowerCase().indexOf(parameter0.toLowerCase()) != -1) {
+                    Object[] o = new Object[5];
                     o[0] = arrayList.get(i).id;
                     o[1] = arrayList.get(i).description;
                     o[2] = arrayList.get(i).priceR;
@@ -261,15 +264,25 @@ public class SearchForm extends javax.swing.JFrame {
                     o[4] = arrayList.get(i).warranty;
                     model.addRow(o);
                 }
-            }
-        }
-
-        outputTable.setModel(model);
+            } else if (parameter0.equals("") && !parameter1.equals("") && !parameter2.equals("")) {
+                if (arrayList.get(i).priceR > Integer.parseInt(parameter2) && arrayList.get(i).priceR < Integer.parseInt(parameter1)) {
+                    Object[] o = new Object[5];
+                    o[0] = arrayList.get(i).id;
+                    o[1] = arrayList.get(i).description;
+                    o[2] = arrayList.get(i).priceR;
+                    o[3] = arrayList.get(i).priceO;
+                    o[4] = arrayList.get(i).warranty;
+                    model.addRow(o);
+                }
+            } 
+            outputTable.setModel(model);
     }//GEN-LAST:event_jButton1MouseClicked
-
+    }
     /**
-     * @param args the command line arguments
-     */
+         * @param args the command line arguments
+         */
+    
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
