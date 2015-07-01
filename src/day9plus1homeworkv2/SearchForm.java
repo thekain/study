@@ -35,28 +35,32 @@ public class SearchForm extends javax.swing.JFrame {
                 String priceO = "";
                 String splittedString[] = tempString.split("\t");
                 try {
+
                     for (int i = 0; i < splittedString[3].length(); i++) {
                         if (splittedString[3].charAt(i) != ' ') {
                             priceR += splittedString[3].charAt(i);
                         }
                     }
+
                     for (int i = 0; i < splittedString[4].length(); i++) {
                         if (splittedString[4].charAt(i) != ' ') {
                             priceO += splittedString[4].charAt(i);
                         }
                     }
                 } catch (Exception priceSpaceRemover) {
+
                 }
 
                 try {
                     arrayObject = new ArrayObject(
                             Integer.parseInt(splittedString[1]),
                             splittedString[2],
-                            Integer.parseInt(splittedString[3]),
-                            Integer.parseInt(splittedString[4]),
+                            Integer.parseInt(priceR),
+                            Integer.parseInt(priceO),
                             splittedString[5]);
                     arrayList.add(arrayObject);
                 } catch (Exception outStringTry) {
+                    //outStringTry.printStackTrace();
                 }
             }
         } catch (Exception readFromFileException) {
@@ -95,7 +99,7 @@ public class SearchForm extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        textField.setText("asus");
+        textField.setText("asus,<13000,>2000");
 
         jButton1.setText("Мне повезет!");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -155,14 +159,42 @@ public class SearchForm extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         outputTable.setAutoResizeMode(outputTable.AUTO_RESIZE_OFF);
-        String searchItem = textField.getText();
+        String parameter1 = "";
+        String parameter2 = "";
+        String fullSearchString = textField.getText();
+        String splittedSearchString[] = fullSearchString.split(",");
+//        for (int i = 0; i < splittedSearchString.length; i++) {
+//            System.out.println(splittedSearchString[i]);
+//            System.out.println(splittedSearchString[i].charAt(0));
+//        }
+        String searchItem = splittedSearchString[0];
+        try {
+            for (int v = 0; v < splittedSearchString.length; v++) {
+                if (splittedSearchString[v].charAt(0) == '<') {
+                    for (int i = 1; i < splittedSearchString[v].length(); i++) {
+                        parameter1 += splittedSearchString[v].charAt(i);
+                    }
+                    System.out.println("<" + parameter1);
+                }
+                if (splittedSearchString[v].charAt(0) == '>') {
+                    for (int i = 1; i < splittedSearchString[v].length(); i++) {
+                        parameter2 += splittedSearchString[v].charAt(i);
+                    }
+                    System.out.println(">" + parameter2);
+                }
+            }
+        } catch (Exception uslovie) {
+
+        }
+
         for (int i = 0; i < arrayList.size(); i++) {
+
 //            if (arrayList.get(i).description.indexOf(searchItem)!=-1){
 //                label.setText(label.getText() + arrayList.get(i).id + " " + arrayList.get(i).description + " " + arrayList.get(i).priceR + " " + arrayList.get(i).priceO + " " + arrayList.get(i).warranty);
 //            }
-            if (arrayList.get(i).description.toLowerCase().indexOf(searchItem.toLowerCase()) != -1) {
-                label.setText(label.getText() + arrayList.get(i).id + " " + arrayList.get(i).description + " " + arrayList.get(i).priceR + " " + arrayList.get(i).priceO + " " + arrayList.get(i).warranty);
-            }
+//            if (arrayList.get(i).description.toLowerCase().indexOf(searchItem.toLowerCase()) != -1) {
+//                label.setText(label.getText() + arrayList.get(i).id + " " + arrayList.get(i).description + " " + arrayList.get(i).priceR + " " + arrayList.get(i).priceO + " " + arrayList.get(i).warranty);
+//            }
             //System.out.println(arrayList.get(i).id + " " + arrayList.get(i).description + " " + arrayList.get(i).priceR + " " + arrayList.get(i).priceO + " " + arrayList.get(i).warranty);
             //label.setText(label.getText()+arrayList.get(i).id + " " + arrayList.get(i).description + " " + arrayList.get(i).priceR + " " + arrayList.get(i).priceO + " " + arrayList.get(i).warranty);
             //label.setText(label.getText() + arrayList.get(i).id + " " + arrayList.get(i).description + " " + arrayList.get(i).priceR + " " + arrayList.get(i).priceO + " " + arrayList.get(i).warranty);
@@ -188,18 +220,51 @@ public class SearchForm extends javax.swing.JFrame {
         };
 
         for (int i = 0; i < arrayList.size(); i++) {
-            if (arrayList.get(i).description.toLowerCase().indexOf(searchItem.toLowerCase()) != -1) {
-            Object[] o = new Object[8];
-            o[0] = arrayList.get(i).id;
-            o[1] = arrayList.get(i).description;
-            o[2] = arrayList.get(i).priceR;
-            o[3] = arrayList.get(i).priceO;
-            o[4] = arrayList.get(i).warranty;
-            model.addRow(o);}
+
+            if (!parameter1.equals("") && !parameter2.equals("")) {
+                if (arrayList.get(i).description.toLowerCase().indexOf(searchItem.toLowerCase()) != -1 && arrayList.get(i).priceR > Integer.parseInt(parameter2) && arrayList.get(i).priceR < Integer.parseInt(parameter1)) {
+                    Object[] o = new Object[8];
+                    o[0] = arrayList.get(i).id;
+                    o[1] = arrayList.get(i).description;
+                    o[2] = arrayList.get(i).priceR;
+                    o[3] = arrayList.get(i).priceO;
+                    o[4] = arrayList.get(i).warranty;
+                    model.addRow(o);
+                }
+            } else if (!parameter1.equals("") && parameter2.equals("")) {
+                if (arrayList.get(i).description.toLowerCase().indexOf(searchItem.toLowerCase()) != -1 && arrayList.get(i).priceR < Integer.parseInt(parameter1)) {
+                    Object[] o = new Object[8];
+                    o[0] = arrayList.get(i).id;
+                    o[1] = arrayList.get(i).description;
+                    o[2] = arrayList.get(i).priceR;
+                    o[3] = arrayList.get(i).priceO;
+                    o[4] = arrayList.get(i).warranty;
+                    model.addRow(o);
+                }
+            } else if (parameter1.equals("") && !parameter2.equals("")) {
+                if (arrayList.get(i).description.toLowerCase().indexOf(searchItem.toLowerCase()) != -1 && arrayList.get(i).priceR > Integer.parseInt(parameter2)) {
+                    Object[] o = new Object[8];
+                    o[0] = arrayList.get(i).id;
+                    o[1] = arrayList.get(i).description;
+                    o[2] = arrayList.get(i).priceR;
+                    o[3] = arrayList.get(i).priceO;
+                    o[4] = arrayList.get(i).warranty;
+                    model.addRow(o);
+                }
+            } else if (parameter1.equals("") && parameter2.equals("")) {
+                if (arrayList.get(i).description.toLowerCase().indexOf(searchItem.toLowerCase()) != -1) {
+                    Object[] o = new Object[8];
+                    o[0] = arrayList.get(i).id;
+                    o[1] = arrayList.get(i).description;
+                    o[2] = arrayList.get(i).priceR;
+                    o[3] = arrayList.get(i).priceO;
+                    o[4] = arrayList.get(i).warranty;
+                    model.addRow(o);
+                }
+            }
         }
+
         outputTable.setModel(model);
-
-
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**
